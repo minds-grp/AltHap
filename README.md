@@ -49,8 +49,8 @@ There are 3 ways to run this example:
 
 The input file format is as follows
 
-Number of reads
-Number of columns
+Number of reads\n
+Number of columns\n
 Number of contiguos segments  Read identifier 	Position of first SNP segment		Continuous bases in read 	 Position of next SNP segment	Continuous bases in read ..... Quality scores (in fastq format)
 
 - Example for Biallelic:
