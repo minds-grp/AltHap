@@ -51,7 +51,7 @@ The input file format is as follows
 
 Number of reads <br />
 Number of columns <br />
-Number_of_contiguos_segments ~ Read_identifier    Position_of_first_SNP_segment    Continuous bases in read    Position of next SNP     segment	Continuous bases in read ..... Quality scores (in fastq format)
+Number_of_contiguos_segments $quad$ Read_identifier    Position_of_first_SNP_segment    Continuous bases in read    Position of next SNP     segment	Continuous bases in read ..... Quality scores (in fastq format)
 
 - Example for Biallelic:
 
