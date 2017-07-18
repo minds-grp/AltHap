@@ -79,8 +79,11 @@ first haplotype		second haplotype 	third haplotype 	...
 - Example for Biallelic:
 
 MEC: 353
+
 CPU Time: 38.363051
+
 Recovered Haplotype:
+
 0 1 1  
 1 0 1  
 0 0 1  
@@ -93,8 +96,11 @@ Recovered Haplotype:
 - Example for Polyallelic:
 
 MEC: 51
+
 CPU Time: 28.912201
+
 Recovered Haplotype:
+
 1 1 1  
 1 0 0  
 3 3 1  
