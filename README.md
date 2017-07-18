@@ -39,8 +39,14 @@ Please refer to the end of this file for a detailed explanation of input and out
 In this example, 'sim0.txt' is the input fragment file, ploidy = 3, and the results are saved in 'AltHap-output.txt'. 
 There are 3 ways to run this example:
 
-- In terminal write: matlab -nojvm -r "AltHap(3,'sim0.txt');exit"
+- In terminal write: 
 
-- In terminal write: matlab -nojvm -nodesktop < ./simple_example.m
+```bash
+matlab -nojvm -r "AltHap(3,'sim0.txt');exit"
+```
+
+- In terminal write: 
+
+```bash matlab -nojvm -nodesktop < ./simple_example.m ```
 
 - Run the 'AltHapSimple.sh' file in terminal. This file would then run the 'simple_example.m' file.
