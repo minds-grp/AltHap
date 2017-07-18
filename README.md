@@ -1,4 +1,6 @@
 # AltHap
+By [Abolfazl Hashemi](https://www.linkedin.com/in/abolfazlh/), [Banghua Zhu](https://github.com/13aeon), and [Haris Vikalo](http://users.ece.utexas.edu/~hvikalo/).
+
 AltHap is a haplotyping assembly method for diploid, polyploid, and polyallelic polyploid organisms. The method formulates the haplotype assembly problem as a tensor factorization proplem and exploits the special structures of the factors.
 
 AltHap is implemented in Python and MATLAB. 
