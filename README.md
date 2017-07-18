@@ -51,23 +51,23 @@ The input file format is as follows
 
 Number of reads <br />
 Number of columns <br />
-Number_of_contiguos_segments $quad$ Read_identifier    Position_of_first_SNP_segment    Continuous bases in read    Position of next SNP     segment	Continuous bases in read ..... Quality scores (in fastq format)
+Number_of_contiguos_segments    Read_identifier    Position_of_first_SNP_segment    Continuous_bases_in_read    Position_of_next_SNP_segment	Continuous_bases_in_read ..... Quality_scores (in fastq format)
 
 - Example for Biallelic:
 
-5568 
-22801
-2 chr22_SPA9_8733 2 0 5 0 ==
-1 chr22_SPH2_1940 3 100 C==
+5568 <br /> 
+22801 <br />
+2 chr22_SPA9_8733 2 0 5 0 == <br />
+1 chr22_SPH2_1940 3 100 C== <br />
 
 - Example for Polyallelic:
 
-4500
-1000
-2	chr3_1	1	13103	37	1132	IIIIIIIII
-2	chr3_2	1	1310321	46	110302	IIIIIIIIIIIII
-2	chr3_3	1	3220001	44	3001	IIIIIIIIIII
-2	chr3_4	1	322000	40	30023	IIIIIIIIIII
+4500 <br />
+1000 <br />
+2	chr3_1	1	13103	37	1132	IIIIIIIII <br />
+2	chr3_2	1	1310321	46	110302	IIIIIIIIIIIII <br />
+2	chr3_3	1	3220001	44	3001	IIIIIIIIIII <br />
+2	chr3_4	1	322000	40	30023	IIIIIIIIIII <br />
 
 
 
@@ -78,36 +78,30 @@ first haplotype		second haplotype 	third haplotype 	...
 
 - Example for Biallelic:
 
-MEC: 353
-
-CPU Time: 38.363051
-
-Recovered Haplotype:
-
-0 1 1  
-1 0 1  
-0 0 1  
-1 1 1  
-0 1 1  
-1 0 0  
-1 0 1  
-1 1 1  
+MEC: 353 <br />
+CPU Time: 38.363051 <br />
+Recovered Haplotype: <br />
+0 1 1 <br /> 
+1 0 1  <br />
+0 0 1  <br />
+1 1 1 <br /> 
+0 1 1  <br />
+1 0 0  <br />
+1 0 1 <br /> 
+1 1 1 <br /> 
 
 - Example for Polyallelic:
 
-MEC: 51
-
-CPU Time: 28.912201
-
-Recovered Haplotype:
-
-1 1 1  
-1 0 0  
-3 3 1  
-2 2 0  
-1 3 1  
-3 0 0  
-0 0 2  
-3 2 0  
+MEC: 51 <br />
+CPU Time: 28.912201 <br />
+Recovered Haplotype: <br />
+1 1 1  <br />
+1 0 0 <br /> 
+3 3 1  <br />
+2 2 0  <br />
+1 3 1  <br />
+3 0 0  <br />
+0 0 2  <br />
+3 2 0  <br />
 
 For higher ploidy, there are K phased haplotypes instead of 3.
