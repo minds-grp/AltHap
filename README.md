@@ -6,7 +6,7 @@ By [Abolfazl Hashemi](https://www.linkedin.com/in/abolfazlh/), [Banghua Zhu](htt
 0. [Citation](#citation)
 0. [MATLAB implementation](#matlab-implementation)
 0. [Input file format](#input-file-format)
-0. [Ouput file format](#ouput-file-format)
+0. [Output file format](#output-file-format)
 
 ### Introduction
 
