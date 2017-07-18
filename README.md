@@ -14,14 +14,16 @@ The current implementations assume that the input file contains a connected comp
 
 If you use AltHap in your research, please cite:
 
-@article{hashemi2017sparse,
-  title={Sparse Tensor Decomposition For Haplotype Assembly Of Diploids And Polyploids},
-  author={Hashemi, Abolfazl and Zhu, Banghua and Vikalo, Haris},
-  journal={bioRxiv},
-  pages={130930},
-  year={2017},
-  publisher={Cold Spring Harbor Labs Journals}
-}
+        @article{hashemi2017sparse,
+            title={Sparse Tensor Decomposition For Haplotype Assembly Of Diploids And Polyploids},
+            author={Hashemi, Abolfazl and Zhu, Banghua and Vikalo, Haris},
+            journal={bioRxiv},
+            pages={130930},
+            year={2017},
+            publisher={Cold Spring Harbor Labs Journals}
+        }
+        
+        
 ------------------------------------------------------------------------------------------------
 MATLAB implementation
 
