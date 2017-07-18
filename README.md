@@ -53,6 +53,8 @@ There are 3 ways to run this example:
 
 - Run the ```AltHapSimple.sh``` file in terminal. This file would then run the ```simple_example.m``` file.
 
+### Python implementation
+
 ### Input file format
 
 The input file format is as follows
