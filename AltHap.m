@@ -164,5 +164,64 @@ elseif ploidy > 2 && alleles_num == 2
     end
     Vt = Vt'; Vt = (Vt+1)/2;
 %% Formulation for Diploid
-    
+elseif ploidy == 2 && alleles_num == 2
+    % Preprocessing
+    Index = double(R ~= 0);
+    R = (R*2-3).*Index;
+    [read_num,hap_len] = size(R);    
+    % Initialization
+    [~, ss, Vt] = svds(R,1);
+    Vt = Vt*sqrt(ss);
+    Vt = sign(Vt');
+    % Optimization
+    err = inf; err_inV = inf; err_hap = inf;
+    err_hist = zeros(1,maxit);
+    Vt_last = 100*ones(1,hap_len);
+    iter=0; tic
+    while iter < maxit && err > thr && err_inV > thr && err_hap > thr
+        iter = iter + 1;
+        Uh = zeros(read_num,ploidy);
+        Uh(:,1) = sum((bsxfun(@minus,R,-Vt).*Index).^2,2);
+        Uh(:,2) = sum((bsxfun(@minus,R,Vt).*Index).^2,2);
+        [~,Uh]=min(Uh,[],2);
+        Uh = Uh*2-3;
+        G_Vt = -Uh'*((R-Uh*Vt).*Index);
+        step_size = max(0.09,(0.9*norm(G_Vt)...
+            /norm((Uh*G_Vt).*Index,'fro'))^2);
+        Vt = Vt-step_size*G_Vt;
+        Vt = max(min(Vt,1),-1);
+        % Termination criteria
+        err = norm((R-Uh*Vt).*Index,'fro'); err_hist(iter) = err;
+        if iter > 1
+            err_inV = abs(err_hist(iter) - err_hist(iter-1));
+        end
+        err_hap = norm(Vt-Vt_last)/sqrt(hap_len);
+        Vt_last = Vt;
+    end
+    cpu_time = toc;
+    Iter_count = iter;
+    err_hist = err_hist(1:iter);    
+    % Final projection and MEC Calculation
+    MEC = 0; Vt = sign(Vt);
+    Vt=[Vt;-Vt];
+    for ii = 1:read_num
+        MEC = MEC+min(sum(bsxfun(@ne,bsxfun(@times,Vt,double(R(ii,:)~= 0))...
+            ,R(ii,:)),2));
+    end
+    Vt = Vt'; Vt = (Vt+1)/2;
+end
+%% Output file generation
+fid=fopen(output_filename,'w');
+fprintf(fid, '%s ', 'MEC:');
+fprintf(fid, '%d\n', MEC);
+fprintf(fid, '%s ', 'CPU Time:');
+fprintf(fid, '%f\n', double(cpu_time));
+fprintf(fid, '%s\n', 'Recovered Haplotype:');
+for m = 1:hap_len
+    for n = 1:ploidy
+        fprintf(fid, '%d ', Vt(m, n));
+    end
+    fprintf(fid, '%s\n', ' ');
+end
+fclose(fid);    
 
