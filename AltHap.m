@@ -23,3 +23,38 @@ function [Vt,MEC,cpu_time,err_hist,Iter_count] = AltHap(ploidy,input_filename,..
 % ECE department, UT Austin, Austin, TX, 78712, US
 % Email: abolfazl@utexas.edu
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Default inputs
+if nargin == 2
+    output_filename = 'AltHap-output.txt';
+    thr = 1e-5;
+    maxit = 200;
+    Sum_Proj = 0;
+elseif nargin == 3
+    thr = 1e-5;
+    maxit = 200;
+    Sum_Proj = 0;
+elseif nargin == 4
+    thr = 1e-5;
+    maxit = 200;
+end
+%% Reading the data
+start = 3;
+fid = fopen(input_filename);
+file = textscan(fid,'%s','delimiter','\n');
+content = char(file{1,1});
+[read_num, ~] = size(content);
+read_num = read_num-2;
+line = textscan(content(2,:),'%s','delimiter',' ');
+hap_len = str2double(line{1}{1});
+R = zeros(read_num,hap_len);
+for i = start:read_num+2
+    line = textscan(content(i,:),'%s','delimiter',' ');
+    line = line{1};
+    for j = 1:str2double(line{1})
+        R(i - start + 1,str2double(line{j*2+1})+1:str2double(line{j*2+1})+length(line{j*2+2})) = ...
+            line{j*2+2} - '0' + 1;
+    end
+end
+alleles_num = length(unique(R))-1;
+%% Formulation for Polyploid - Polyallelic
+
