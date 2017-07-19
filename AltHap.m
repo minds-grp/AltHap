@@ -57,4 +57,63 @@ for i = start:read_num+2
 end
 alleles_num = length(unique(R))-1;
 %% Formulation for Polyploid - Polyallelic
+if ploidy > 2 && alleles_num > 2
+    % Preprocessing
+    BS = eye(ploidy);
+    Index = double(R ~= 0);
+    Index = repmat(Index,1,alleles_num);
+    % Encode R to a binary tensor Rt and mode-1 unfolding
+    [read_num,hap_len] = size(R);
+    Rin = R;
+    R = reshape(R,[],1);
+    R(R == 0) = alleles_num+1;
+    I = [eye(alleles_num);zeros(1,alleles_num)];
+    R=reshape(reshape(I(R,:),[read_num,hap_len,alleles_num])...
+        ,[read_num,alleles_num*hap_len]);
+    [~,hapXallele] = size(R);  
+    % Initialization
+    [~, ss, Vt] = svds(R,ploidy);
+    Vt = Vt*sqrt(ss);
+    Vt = Vt';
+    % Optimization
+    err = inf; err_inV = inf; err_hap = inf;
+    err_hist = zeros(1,maxit);
+    Vt_last = 100*ones(ploidy,hapXallele);
+    iter=0; tic
+    while iter < maxit && err > thr && err_inV > thr && err_hap > thr
+        iter = iter + 1;
+        Uh = zeros(read_num,ploidy);
+        for ii = 1:ploidy
+            Uh(:,ii) = sum((bsxfun(@minus,R,Vt(ii,:)).*Index).^2,2);
+        end
+        [~,Uh]=min(Uh,[],2);
+        Uh = BS(Uh, :);       
+        G_Vt = -Uh'*((R-Uh*Vt).*Index);
+        step_size = max(0.09,(0.9*norm(G_Vt,'fro')...
+            /norm((Uh*G_Vt).*Index,'fro'))^2);
+        Vt = Vt-step_size*G_Vt;
+        Vt = max(min(Vt,1),10^(-16));
+        if Sum_Proj == 1
+            Vt = Vt./repmat(sum(reshape(Vt,[ploidy,hap_len,alleles_num])...
+                ,3),[1,alleles_num]);
+        end
+        % Termination criteria
+        err = norm((R-Uh*Vt).*Index,'fro'); err_hist(iter) = err;
+        if iter > 1
+            err_inV = abs(err_hist(iter) - err_hist(iter-1));
+        end
+        err_hap = norm(Vt-Vt_last,'fro')/sqrt(hapXallele/ploidy);
+        Vt_last = Vt;
+    end
+    cpu_time = toc;
+    Iter_count = iter;
+    err_hist = err_hist(1:iter);   
+    % Final projection and MEC calculation
+    [~,Vt] = max(reshape(Vt,[ploidy,hap_len,alleles_num]),[],3);
+    MEC = 0; R = Rin;
+    for ii = 1:read_num
+        MEC = MEC+min(sum(bsxfun(@ne,bsxfun(@times,Vt,double(R(ii,:)~= 0))...
+            ,R(ii,:)),2));
+    end
+    Vt = Vt'-1;
 
